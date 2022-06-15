@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Flappy</title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
+    <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/950e74156a.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+</head>
+<style type="text/css">
+    #text .new { opacity: 0; }
+    #text .div_opacity {
+        -webkit-transition: opacity .2s ease-in-out;
+        -moz-transition: opacity .2s ease-in-out;
+        -ms-transition: opacity .2s ease-in-out;
+        -o-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 1;
+        color: #c2fff5;
+    }
+
+    .anim-show{
+        width:98%;
+        border-radius: 15px;
+        font-size:25px;
+        margin:auto;
+        text-align:center;
+        opacity:0; /*Элемент полностью прозрачный (невидимый)*/
+        transition: 1s; /*Скорость перехода состояния элемента*/
+        animation: show 2s 1; /* Указываем название анимации, её время и количество повторов*/
+        animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
+        animation-delay: 2.5s; /* Задержка перед началом */
+    }
+
+    .card{
+        opacity:0; /*Элемент полностью прозрачный (невидимый)*/
+        transition: 1s; /*Скорость перехода состояния элемента*/
+        animation: show 1s 1; /* Указываем название анимации, её время и количество повторов*/
+        animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
+        animation-delay: 0.2s; /* Задержка перед началом */
+    }
+
+    @keyframes show{
+        0%{ opacity:0; }
+        100% { opacity:1; }
+    }
+
+</style>
+<body style="background: url(https://wallpaperaccess.com/full/2564042.jpg) no-repeat; background-attachment: fixed; background-size: 100%;">
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $.fn.animate_Text = function() {
+            var string = this.text();
+            return this.each(function(){
+                var $this = $(this);
+                $this.html(string.replace(/./g, '<span class="new">$&</span>'));
+                $this.find('span.new').each(function(i, el){
+                    setTimeout(function(){ $(el).addClass('div_opacity'); }, 20 * i);
+                });
+            });
+        };
+        $('#text').show();
+        $('#text').animate_Text();
+
+    });
+</script>
+<div class="container-fluid">
+    <div th:insert="~{layout/navbar.html}">
+
+    </div>
+</div>
+
+<div class="container" style="height: 605px">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div layout:fragment="content">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div th:insert="~{layout/footer.html}">
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{'/js/bootstrap.min.js'}">
+    $(document).ready(function(){
+        $.fn.animate_Text = function() {
+            var string = this.text();
+            return this.each(function(){
+                var $this = $(this);
+                $this.html(string.replace(/./g, '<span class="new">$&</span>'));
+                $this.find('span.new').each(function(i, el){
+                    setTimeout(function(){ $(el).addClass('div_opacity'); }, 20 * i);
+                });
+            });
+        };
+        $('#example').show();
+        $('#example').animate_Text();
+    });
+</script>
+</body>
+</html>

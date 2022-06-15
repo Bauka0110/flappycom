@@ -1,0 +1,54 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main2.html">
+
+<div layout:fragment="content" class="mt-2">
+    <h4 style="color: white" th:text="${'Friends ' + friends.size()}"></h4>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-12 mb-4" th:each="friend : ${friends}" style="padding: 0; width: 96%">
+            <div class="card shadow" style="width: 100%; background-color: #2c3034; border: 2px solid black; border-radius: 15px;">
+                <div class="card-body" style="height: 100px; margin-top: -10px">
+                    <div class="d-flex align-items-center">
+                        <a th:href="@{'/prifile'}"><img th:src="${friend.friend.avatar}" style="width: 58px; height: 58px;border-radius: 29px; border: 2px solid black" ></a>
+                        <div>
+                            <a class="name_decor nav-link active" th:href="@{'/profile'}" th:text="${friend.friend.fullName}" style="color: white; padding-bottom: 4px"></a>
+                            <a class="name_decor nav-link active" href="#" style="font-size: 10px; color: #C4C4C4; padding-top: 0"><b th:text="${friend.friend.country}"></b></a>
+                            <a class="name_decor nav-link active" href="#" style="font-size: 10px; color: #C4C4C4; padding-top: 0"><b th:text="${friend.friend.email}"></b></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 style="color: white" th:text="${'Friend Requests ' + friendsResponse.size()}"></h4>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-12 mb-4" th:each="response : ${friendsResponse}" style="padding: 0; width: 96%">
+            <form th:action="${'addfriendresponse'}" method="post">
+                <div class="card shadow" style="width: 100%; background-color: #2c3034; border: 2px solid black; border-radius: 15px;">
+                    <div class="card-body" style="height: 100px; margin-top: -10px">
+                        <div class="d-flex align-items-center">
+                            <input type="hidden" th:value="${response.from.id}" name="id">
+                            <input type="hidden" th:value="${response.id}" name="idd">
+                            <a th:href="@{'/prifile'}"><img th:src="${response.from.avatar}" style="width: 58px; height: 58px;border-radius: 29px; border: 2px solid black" ></a>
+                            <div style="width: 150px">
+                                <a class="name_decor nav-link active" th:href="@{'/profile'}" th:text="${response.from.fullName}" style="color: white; padding-bottom: 4px"></a>
+                                <a class="name_decor nav-link active" href="#" style="font-size: 10px; color: #C4C4C4; padding-top: 0"><b th:text="${response.from.country}"></b></a>
+                                <a class="name_decor nav-link active" href="#" style="font-size: 10px; color: #C4C4C4; padding-top: 0"><b th:text="${response.from.email}"></b></a>
+                            </div>
+                            <div class="mt-3 row justify-content-center" style="width: 140px; margin-bottom: 18px;">
+                                <button class="btn" style="border-radius: 15px">Accept request</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</html>

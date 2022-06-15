@@ -1,0 +1,79 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main2.html">
+
+<div layout:fragment="content" style="height: 600px">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <form th:action="@{'updateprofile'}" method="post">
+
+                <div class="mb-3 row">
+                    <label for="inputFullName" class="col-sm-5 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">FULL NAME: </label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control mt-3 mb-3" id="inputFullName" name="fullName" th:value="${CURRENT_USER.fullName}" style="border-radius: 15px; padding: 10px 20px 10px 20px;" readonly>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="inputEmail" class="col-sm-5 col-form-label mt-2 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">EMAIL: </label>
+                    <div class="col-sm-7">
+                        <input type="email" class="form-control mt-2 mb-3" id="inputEmail" name="email" th:value="${CURRENT_USER.email}" style="border-radius: 15px; padding: 10px 20px 10px 20px;" readonly>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-5 col-form-label mt-2 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">OLD PASSWORD: </label>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control mt-2 mb-3" id="inputPassword" name="old_password" required placeholder="Insert Password" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="inputNewPassword" class="col-sm-5 col-form-label mt-2 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">NEW PASSWORD: </label>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control mt-2 mb-3" id="inputNewPassword" name="new_password" required placeholder="Insert New Password" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="inputConfirmNewPassword" class="col-sm-5 col-form-label mt-2 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">CONFIRM NEW PASSWORD: </label>
+                    <div class="col-sm-7">
+                        <input type="password" class="form-control mt-2 mb-3" id="inputConfirmNewPassword" name="confirm_new_password" required placeholder="Insert New Password" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="inputCountry" class="col-sm-5 col-form-label mt-1 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">COUNTRY: </label>
+                    <div class="col-sm-7">
+                        <select class="form-select mt-1 mb-3" id="inputCountry" name="country" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                            <option th:text="${CURRENT_USER.country}" selected></option>
+                            <option th:text="${'Kazakhstan'}" th:value="${'Kazakhstan'}"></option>
+                            <option th:text="${'Russian'}" th:value="${'Russian'}"></option>
+                            <option th:text="${'United State Of America'}" th:value="${'United State Of America'}"></option>
+                            <option th:text="${'Great Britain'}" th:value="${'Great Britain'}"></option>
+                            <option th:text="${'China'}" th:value="${'China'}"></option>
+                            <option th:text="${'France'}" th:value="${'France'}"></option>
+                            <option th:text="${'India'}" th:value="${'India'}"></option>
+                            <option th:text="${'Egypt'}" th:value="${'Egypt'}"></option>
+                            <option th:text="${'Estonia'}" th:value="${'Estonia'}"></option>
+                            <option th:text="${'Germany'}" th:value="${'Germany'}"></option>
+                            <option th:text="${'Japan'}" th:value="${'Japan'}"></option>
+                            <option th:text="${'Malaysia'}" th:value="${'Malaysia'}"></option>
+                            <option th:text="${'Mexico'}" th:value="${'Mexico'}"></option>
+                            <option th:text="${'Portugal'}" th:value="${'Portugal'}"></option>
+                            <option th:text="${'Argentina'}" th:value="${'Argentina'}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-3 row mx-auto" style="width: 350px;">
+                    <button class="btn" style="border-radius: 15px; background-color: #060F1C; color: #C4C4C4">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>

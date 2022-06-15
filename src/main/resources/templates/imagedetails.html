@@ -1,0 +1,53 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main2.html">
+
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-12 mx-auto">
+                <form th:action="@{'/saveimage'}" method="post">
+                    <div th:if="${images!=null}">
+                        <input type="hidden" name="id"  th:value="${images.id}">
+
+                        <div class="mb-2 row" >
+                            <label for="inputPictureURL" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: white; font-size: 20px">Picture URL: </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control mt-3 mb-3" id="inputPictureURL" name="pictureURL" th:value="${images.pictureURL}" style="color: black; border-radius: 15px; padding: 10px 20px 10px 20px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-success mt-3" style="margin-right: 15px">Save</button>
+                            <button type="button" class="btn mt-3" data-bs-toggle="modal" data-bs-target="#deleteTaskModal">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal fade" id="deleteTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form th:action="${'/deleteimage'}" method="post">
+                                <input type="hidden" name="id" th:value="${images.id}">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Confirm Delete Process</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                                    <button class="btn btn-danger">YES</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</html>

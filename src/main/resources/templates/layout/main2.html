@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Flappy</title>
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
+    <link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+    <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet">
+    <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/950e74156a.js" crossorigin="anonymous"></script>
+</head>
+<style type="text/css">
+
+    a.btn {
+        color: #C4C4C4;
+    }
+
+    a.btn:hover {
+        background-color: #C1BD01;
+        color: #000000FF;
+    }
+
+    button.btn {
+        color: white;
+        background-color: #055160;
+    }
+    button.btn:hover {
+        background-color: #C1BD01;
+        color: #000000FF;
+    }
+
+    a.name_decor:hover {
+        text-decoration: underline;
+    }
+    a.time_decor:hover {
+        text-decoration: underline;
+    }
+
+    a.main_info_email:hover {
+        text-decoration: underline;
+    }
+    a.main_info_country:hover {
+        text-decoration: underline;
+    }
+</style>
+<body style="background: url(https://wallpaperaccess.com/full/3381983.jpg) no-repeat; background-attachment: fixed; background-size: 100%;">
+<div class="container-fluid">
+    <div th:insert="~{layout/navbar2.html}">
+
+    </div>
+</div>
+
+<div class="container mb-2" style="height: auto">
+    <div class="row mt-3 ms-5" style="width:1200px; height: auto;">
+        <div style=" width: 220px; margin-right: 10px; padding: 0;">
+            <div class="profileimg mb-2" style="border-radius: 15px; height: 220px; border: 4px solid black;" >
+                <button data-bs-toggle="modal" data-bs-target="#addavatar" style="border-radius: 15px; width: 100%; height: 100%; border: none; padding: 0 0 0 0 ">
+                    <img class="shadow" th:src="${CURRENT_USER.avatar}" style="width: 100%; height: 100%; border-radius:10px">
+                </button>
+            </div>
+            <div class="modal fade" id="addavatar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" >
+                    <form th:action="@{'/addavatar'}" method="post">
+                        <div class="modal-content" style="background: url(https://wallpaperaccess.com/full/309080.png)">
+                            <div class="modal-header" style="color: white">
+                                <h5 class="modal-title" id="staticBackdropLabel" th:text="#{main2.AddNewAvatar}"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="mb-2 row" >
+                                    <label for="inputAvatar" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: white; font-size: 20px" th:text="#{main2.NEWAVATAR}"></label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control mt-3 mb-3" id="inputAvatar" name="new_avatar"  required placeholder="Insert URL of Avatar" style="color: black; border-radius: 15px; padding: 10px 20px 10px 20px;">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" data-bs-dismiss="modal" th:text="#{main2.button.close}"></button>
+                                <button type="submit" class="btn" th:text="#{main2.button.save}"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div style="height: auto;">
+                <div style="display: flex; flex-direction: column;">
+                    <div class="mb-2" >
+                        <a class="btn" style="border-radius: 20px;  padding: 5px 30px 6px 15px; font-size: 20px;" href="/profile">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-user"></i><span th:text="#{main2.MyProfile}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="/adminpage">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-user-shield"></i><span th:text="#{main2.Admin}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="/">
+                            <i style="margin-right: 10px; width: 30px;"class="fas fa-user-cog"></i><span th:text="#{main2.Moderator}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2" >
+                        <a class="btn" style="border-radius: 20px;  padding: 5px 30px 6px 15px; font-size: 20px;" href="/news">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-home"></i><span th:text="#{main2.Home}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2" >
+                        <a class="btn" style="border-radius: 20px;  padding: 5px 30px 6px 15px; font-size: 20px;" href="/news">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-newspaper"></i><span th:text="#{main2.News}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="/friends">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-user-friends"></i><span th:text="#{main2.Friends}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="/">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-envelope"></i><span th:text="#{main2.Messages}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="/images">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-images"></i><span th:text="#{main2.Images}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="/settings">
+                            <i style="margin-right: 10px; width: 30px;" class="fas fa-cog"></i><span th:text="#{main2.Settings}"></span>
+                        </a>
+                    </div>
+
+                    <div class="mb-2">
+                        <a class="btn" style="border-radius: 20px; padding: 5px 30px 6px 15px; font-size: 20px;" href="JavaScript:void(0)" onclick="logout()">
+                            <i style="margin-right: 10px; width: 30px; color: red" class="fas fa-sign-out-alt"></i><span th:text="#{main2.Logout}"></span>
+                            <script type="text/javascript">
+                                function logout() {
+                                    document.getElementById("logoutFormId").submit();
+                                }
+                            </script>
+                            <form th:action="${'/logout'}" method="post" id="logoutFormId">
+                            </form>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 610px; margin-right: 10px;">
+            <div layout:fragment="content">
+            </div>
+        </div>
+        <div style="width: 350px; height: 300px">
+            <div class="mb-3 row">
+                <form th:action="${'searchusers'}" method="get">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control mt-3 mb-3" name="userfullname" th:placeholder="#{main2.Search}" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                    </div>
+
+                    <div class="mt-3 row mx-auto" style="width: 50%;">
+                        <button class="btn" style="border-radius: 15px; background-color: #060F1C; color: #C4C4C4" th:text="#{main2.Search}"></button>
+                    </div>
+                </form>
+            </div>
+            <div class="row justify-content-center mt-3" style="background-color: #C4C4C4; border: 3px black solid; border-radius: 15px; padding: 10px 20px">
+                <div class="row mt-2">
+                    <img src="https://edu.bitlab.academy/img/login_logo.5588369b.png">
+                </div>
+                <div class="row mt-2 mb-2" style="padding: 0">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwon7MUyiLyV_Xg0cD_rhjldW_0n4SjEi951OHFsxaZRa-se2CgvfSaQx-I5Ou8IrkiTI&usqp=CAU" style="margin: 0; padding: 0; border: 1px black solid; border-radius: 15px;">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="background-color: #101010">
+    <div th:insert="~{layout/footer.html}"></div>
+</div>
+
+<script type="text/javascript" th:src="@{'/js/bootstrap.min.js'}"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main2.html">
+
+<div layout:fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-12" style="width: 96%;">
+
+            <div class="modal fade" id="addimages" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="color: black">
+                <div class="modal-dialog modal-lg" >
+                    <form th:action="@{'/addimage'}" method="post">
+                        <div class="modal-content" style="background: url(https://wallpaperaccess.com/full/309080.png)">
+                            <div class="modal-header" style="color: white">
+                                <h5 class="modal-title" id="staticBackdropLabel">Add New Image</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="mb-2 row" >
+                                    <label for="inputURLofPicture" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: white; font-size: 20px">NEW IMAGE: </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control mt-3 mb-3" id="inputURLofPicture" name="pictureURL"  required placeholder="Insert URL of Image" style="color: black; border-radius: 15px; padding: 10px 20px 10px 20px;">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn" data-bs-dismiss="modal" th:text="${'Close'}"></button>
+                                <button type="submit" class="btn" th:text="${'Save'}"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row mt-3 justify-content-center">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 500px;">
+                    <div class="profileimages mb-2 mt-2" style="color:white;">
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#addimages">
+                            <i class="fas fa-plus"><span style="margin-left: 10px; font-family: cursive" th:text="${'Add Image'}"></span></i>
+                        </a>
+                    </div>
+                    <div class="carousel-inner d-flex align-items-center" style="height: 300px; border: 12px solid black; border-radius: 15px; background-color: black">
+                        <div class="carousel-item active">
+                            <a th:href="${CURRENT_USER.avatar}" >
+                                <img th:src="${CURRENT_USER.avatar}" class="d-block w-100" style="width: 100%; height: 100%;">
+                            </a>
+                        </div>
+                        <div class="carousel-item" th:if="${CURRENT_USER == im.users}" th:each="im : ${images}" style="width: 100%; height: 100%">
+                            <a th:href="${im.pictureURL}">
+                                <img th:if="${im.pictureURL!=null}" th:src="${im.pictureURL}" class="d-block w-100 ">
+                            </a>
+                        </div>
+                    </div>
+                    <button style="margin-top: 55px; height: 270px" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button style="margin-top: 55px; height: 270px" class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="row mt-4 justify-content-evenly">
+                <div class="col-12 mb-4" th:each="image : ${images}" th:if="${CURRENT_USER == image.users}" style="padding: 0">
+                    <div class="card shadow" style="width: 100%; background-color: #131111; border-radius: 15px;">
+                        <div class="card-body" style="padding-top: 7px">
+                            <div class="mb-2 d-flex align-items-center" style="margin-left: auto; vertical-align: center; width: 15px">
+                                <a th:if="${CURRENT_USER == image.users}" th:href="@{'/imagedetails/' + ${image.id}}">
+                                    <i style="margin-right: 10px; width: 30px; color: white" class="fas fa-ellipsis-v"></i>
+                                </a>
+                            </div>
+                            <a th:href="${image.pictureURL}">
+                                <img th:if="${image.pictureURL!=null}" style="width: 100%;" th:src="${image.pictureURL}" class="card-img-top">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

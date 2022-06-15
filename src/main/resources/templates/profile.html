@@ -1,0 +1,117 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main2.html">
+
+<div layout:fragment="content">
+    <div class="row mx-auto" style="background-color: #2c3034; color:white; border-radius: 15px; font-family: inherit; border: 2px solid black">
+        <div class="col-12 mt-3 mx-2">
+            <div class="name_status">
+                <h5 th:text="${CURRENT_USER.fullName}"></h5>
+                <h6 th:text="#{main2.profile.status}" style="font-weight: lighter; color: #C4C4C4"></h6>
+            </div>
+        </div>
+        <div class="row mx-auto mt-2" style="width: 97%;"><hr></div>
+        <div class="row">
+        <div class="col-4 mx-2">
+            <div class="main_info">
+                <p th:text="#{main2.profile.country}" style="font-weight: bold"></p>
+                <p th:text="#{main2.profile.email}" style="font-weight: bold"></p>
+            </div>
+        </div>
+        <div class="col-7">
+            <div class="main_info2" style="margin-top: -7px;">
+                <a style="color: #C4C4C4" class="main_info_country nav-link active" href="#" th:text="${CURRENT_USER.country}"></a>
+                <a style="color: #C4C4C4" class="main_info_email nav-link active" href="#" th:text="${CURRENT_USER.email}"></a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 300px;">
+            <div class="carousel-inner d-flex align-items-center" style="height: 200px; border: 12px solid black; border-radius: 15px; background-color: black">
+                <div class="carousel-item active">
+                    <a th:href="${CURRENT_USER.avatar}" >
+                        <img th:src="${CURRENT_USER.avatar}" class="d-block w-100" style="width: 100%; height: 100%;">
+                    </a>
+                </div>
+                <div class="carousel-item" th:if="${CURRENT_USER == im.users}" th:each="im : ${images}" style="width: 100%; height: 100%">
+                    <a th:href="${im.pictureURL}">
+                        <img th:if="${im.pictureURL!=null}" th:src="${im.pictureURL}" class="d-block w-100 ">
+                    </a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="width: 20px; margin-left: 25px">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" style="width: 20px; margin-right: 25px">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+
+        <div class="row mx-auto" style="background-color: #2c3034; color:white; border-radius: 15px; font-family: inherit; border: 2px solid black; width: 285px">
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <a class="btn justify-content-center" style="border-radius: 10px; width: 100%; height: 80%; padding-top: 10px">
+                    <h6 style="font-size: 100%" th:text="#{main2.Friends}"></h6>
+                    <p th:text="${userFriends.size()}"></p>
+                </a>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <a class="btn justify-content-center" style="border-radius: 10px; width: 100%; height: 80%; padding-top: 10px">
+                    <h6 style="font-size: 100%" th:text="#{main2.profile.posts}"></h6>
+                    <p th:text="${userPosts.size()}"></p>
+                </a>
+            </div>
+
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <a class="btn justify-content-center" style="border-radius: 10px; width: 100%; height: 80%; padding-top: 10px">
+                    <h6 style="font-size: 100%" th:text="#{main2.Images}"></h6>
+                    <p th:text="${userImages.size()}"></p>
+                </a>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-center">
+                <a class="btn justify-content-center" style="border-radius: 10px; width: 100%; height: 80%; padding-top: 10px">
+                    <h6 style="font-size: 100%" th:text="#{main2.profile.followers}"></h6>
+                    <p th:text="${friendsRequests.size()}"></p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4 justify-content-center">
+        <div class="col-12 mb-4" th:each="post : ${posts}" th:if="${CURRENT_USER == post.users}" style="padding: 0; width: 96%">
+            <div class="card shadow" style="width: 100%; background-color: #dcdcdc">
+                <div class="card-body ">
+                    <div style="display: flex">
+                        <a th:href="@{'/prifile'}"><img th:src="${post.users.avatar}" style="width: 48px; height: 48px;border-radius: 24px;" ></a>
+                        <div>
+                            <a class="name_decor nav-link active" th:href="@{'/profile'}" th:text="${post.users.fullName}" style="color: black; padding-top: 0; padding-bottom: 4px"></a>
+                            <a class="time_decor nav-link active" href="#" style="font-size: 10px; color: #8a9197; padding-top: 0"><b th:text="${post.addedDate}"></b></a>
+                        </div>
+
+                        <div class="mb-2 d-flex align-items-center" style="margin-left: auto; vertical-align: center; width: 15px">
+                            <a th:if="${CURRENT_USER == post.users}" th:href="@{'/details/' + ${post.id}}">
+                                <i style="margin-right: 10px; width: 30px; color: black" class="fas fa-ellipsis-v"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="mb-2 mt-1" style="font-size: 15px; font-family: inherit; margin-bottom: 5px"><b th:text="${post.content}"></b></div>
+                    <img th:if="${post.pictureURL!=null}" style="width: 100%;" th:src="${post.pictureURL}" class="card-img-top">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="profile_content" >
+
+    </div>
+</div>
+
+</html>

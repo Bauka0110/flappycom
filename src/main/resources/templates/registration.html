@@ -1,0 +1,94 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main.html">
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-6 mx-auto">
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error!=null}">
+                Error on password!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <div class="card" style="background-color: #271a1a00; border: none">
+                <form th:action="@{'registration'}" method="post">
+
+                    <div class="mb-4 row">
+                        <label for="inputFullName" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">FULL NAME: </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control mt-3 mb-3" id="inputFullName" name="fullName"  required placeholder="Insert Full Name" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row">
+                        <label for="inputNewPassword" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">PASSWORD: </label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control mt-3 mb-3" id="inputNewPassword" name="new_password" required placeholder="Insert password" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="inputConfirmPassword" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">CONFIRM PASSWORD: </label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control mt-3 mb-3" id="inputConfirmPassword" name="confirm_password" required placeholder="Insert password" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row">
+                        <label for="inputEmail" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">EMAIL: </label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control mt-3 mb-3" id="inputEmail" name="email"  required placeholder="Insert email" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="inputCountry" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">COUNTRY: </label>
+                        <div class="col-sm-9">
+                            <select class="form-select mt-3 mb-3" id="inputCountry" name="country" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                                <option style="color: rgba(152,33,45,0.88)" th:text="${'Choose Your Country'}" selected></option>
+                                <option th:text="${'Kazakhstan'}" th:value="${'Kazakhstan'}"></option>
+                                <option th:text="${'Russian'}" th:value="${'Russian'}"></option>
+                                <option th:text="${'United State Of America'}" th:value="${'United State Of America'}"></option>
+                                <option th:text="${'Great Britain'}" th:value="${'Great Britain'}"></option>
+                                <option th:text="${'China'}" th:value="${'China'}"></option>
+                                <option th:text="${'France'}" th:value="${'France'}"></option>
+                                <option th:text="${'India'}" th:value="${'India'}"></option>
+                                <option th:text="${'Egypt'}" th:value="${'Egypt'}"></option>
+                                <option th:text="${'Estonia'}" th:value="${'Estonia'}"></option>
+                                <option th:text="${'Germany'}" th:value="${'Germany'}"></option>
+                                <option th:text="${'Japan'}" th:value="${'Japan'}"></option>
+                                <option th:text="${'Malaysia'}" th:value="${'Malaysia'}"></option>
+                                <option th:text="${'Mexico'}" th:value="${'Mexico'}"></option>
+                                <option th:text="${'Portugal'}" th:value="${'Portugal'}"></option>
+                                <option th:text="${'Argentina'}" th:value="${'Argentina'}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <input type="hidden" class="form-control mt-3 mb-3" id="inputAvatar" name="avatar" th:value="${'https://icon-library.com/images/unknown-person-icon/unknown-person-icon-19.jpg'}" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+
+                    <div class="mb-1 row">
+                        <label  class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">GENDER: </label>
+                        <div class="col-sm-9" style="margin-top: 25px">
+                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="male">
+                            <label class="form-check-label" for="flexRadioDefault1" style="font-family: Bahnschrift; color: #C4C4C4; margin-right: 50px">Male</label>
+                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" checked value="female">
+                            <label class="form-check-label" for="flexRadioDefault2" style="font-family: Bahnschrift; color: #C4C4C4;" >Female</label>
+                        </div>
+                    </div>
+
+                    <div class="row mx-auto" style="width: 350px;">
+                        <button class="btn" style="border-radius: 15px; background-color: #060F1C; color: #C4C4C4">SIGN UP</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</html>

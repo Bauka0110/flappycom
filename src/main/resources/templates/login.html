@@ -1,0 +1,47 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main.html">
+
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-5 mx-auto" style="margin-top: 150px">
+            <div class="card" style="background-color: #271a1a00; border: none">
+                <form th:action="${'/auth'}" method="post">
+                    <div class="mb-3 row">
+                        <label for="inputEmail" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">EMAIL: </label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control mt-3 mb-3" id="inputEmail" name="user_email"  required placeholder="Insert email" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label mt-3 mb-3" style="font-family: Bahnschrift; color: #C4C4C4; font-size: 20px">PASSWORD: </label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control mt-3 mb-3" id="inputPassword" name="user_password" required placeholder="Insert password" style="border-radius: 15px; padding: 10px 20px 10px 20px;">
+                        </div>
+                    </div>
+
+                    <div class="mt-3 row mx-auto" style="width: 350px;">
+                        <button class="btn" style="border-radius: 15px; background-color: #060F1C; color: #C4C4C4">SIGN IN</button>
+                    </div>
+
+                    <div class="mt-3 row mx-auto">
+                        <div class="col-6" style="text-align: center">
+                            <a class="nav-link active" href="#" th:text="${'Forgot Password?'}" style="color: #C4C4C4;">
+                            </a>
+                        </div>
+                        <div class="col-6" style="text-align: center">
+                            <a class="nav-link active" th:href="${'/registration'}" th:text="${'Sign up on Flappy'}" style="color: #C4C4C4;">
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</html>
